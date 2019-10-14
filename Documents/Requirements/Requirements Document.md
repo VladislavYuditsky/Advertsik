@@ -3,12 +3,14 @@
 
 # Содержание
 1 [Введение](#intro)  
-1.1 [Назначение](#appointment) 
+1.1 [Назначение](#appointment)  
 1.2 [Бизнес-требования](#business_requirements)  
-1.2.1 [Исходные данные](#initial_data) 
-1.2.2 [Возможности бизнеса](#business_opportunities) 
-1.2.3 [Границы проекта](#project_boundary) 
-1.3 [Аналоги](#analogues) 
+1.2.1 [Исходные данные](#initial_data)  
+1.2.2 [Возможности бизнеса](#business_opportunities)  
+1.2.3 [Границы проекта](#project_boundary)  
+1.3 [Аналоги](#analogues)  
+2 [Требования пользователя](#user_requirements)  
+2.1 [Программные интерфейсы](#software_interfaces)  
 
 <a name="intro"/>
 
@@ -42,3 +44,12 @@
 
 ## 1.3 Аналоги
 Обзор аналогов представлен в документе
+
+<a name="user_requirements"/>
+
+# 2 Требования пользователя
+
+<a name="software_interfaces"/>
+
+## 2.1 Программные интерфейсы
+Сайт обрабатывает запросы пользователя, согласно протоколу http, и хранит всю информцию в базе данных MySQL. Приложение реализовано на платформе Spring Framework.
