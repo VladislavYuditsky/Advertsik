@@ -1,5 +1,5 @@
 # Advertsik
-##Advertising website.
+## Advertising website.
 Язык реализации: Java
 
 # Содержание
