@@ -10,7 +10,7 @@
 <a name="reg"/>
 
 # 1 Зарегистрироваться
-![Зарегистрироваться](../../../Images/System%20design/red_activity.png)
+![Зарегистрироваться](../../../Images/System%20design/reg_activity.png)
 
 <a name="login"/>
 
