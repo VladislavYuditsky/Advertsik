@@ -8,7 +8,7 @@
 <a name="enter"/>
 
 # 1 Войти в учётную запись
-![Войти в учётную запись](../../../Images/System%20design/lodin_state.png)
+![Войти в учётную запись](../../../Images/System%20design/login_state.png)
 
 <a name="change"/>
 
