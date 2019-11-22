@@ -7,9 +7,10 @@
         <span><a href="/user">User list</a></span>
     </div>
     <div>
-        <form method="post">
+        <form method="post" enctype="multipart/form-data">
             <input type="text" name="title" placeholder="Введите заголовок"/>
             <input type="text" name="description" placeholder="Описание"/>
+            <input type="file" name="file">
             <input type="hidden" name="_csrf" value="${_csrf.token}"/>
             <button type="submit">Добавить</button>
         </form>
@@ -25,6 +26,11 @@
             <span>${ad.description}</span>
             <b>${ad.id}</b>
             <strong>${ad.authorName}</strong>
+            <div>
+                <#if ad.filename??>
+                    <img src="/img/${ad.filename}">
+                </#if>
+            </div>
         </div>
     <#else>
         No ads
