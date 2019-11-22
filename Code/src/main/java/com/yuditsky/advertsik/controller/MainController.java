@@ -1,6 +1,6 @@
 package com.yuditsky.advertsik.controller;
 
-import com.yuditsky.advertsik.bean.Ad;
+import com.yuditsky.advertsik.domain.Ad;
 import com.yuditsky.advertsik.repository.AdRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,17 +11,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.Map;
 
 @Controller
-public class GreetingController {
+public class MainController {
     @Autowired
     private AdRepository adRepository;
 
-    @GetMapping("/greeting")
-    public String greeting(@RequestParam(name = "name", required = false, defaultValue = "World") String name, Map<String, Object> model) {
-        model.put("name", name);
+    @GetMapping("/")
+    public String greeting(Map<String, Object> model) {
         return "greeting";
     }
 
-    @GetMapping
+    @GetMapping("/main")
     public String main(Map<String, Object> model) {
         Iterable<Ad> ads = adRepository.findAll();
         model.put("ads", ads);
@@ -29,7 +28,7 @@ public class GreetingController {
         return "main";
     }
 
-    @PostMapping
+    @PostMapping("/main")
     public String add(@RequestParam String title, @RequestParam String description, Map<String, Object> model) {
         Ad ad = new Ad(title, description);
 
