@@ -1,9 +1,6 @@
-package com.yuditsky.advertsik.bean;
+package com.yuditsky.advertsik.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
@@ -15,12 +12,21 @@ public class Ad {
     private String title;
     private String description;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id")
+    private User author;
+
     public Ad() {
     }
 
-    public Ad(String title, String description) {
+    public Ad(String title, String description, User author) {
         this.title = title;
         this.description = description;
+        this.author = author;
+    }
+
+    public String getAuthorName(){
+        return author.getUsername();
     }
 
     public Integer getId() {
@@ -45,6 +51,14 @@ public class Ad {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public User getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(User author) {
+        this.author = author;
     }
 
     @Override
