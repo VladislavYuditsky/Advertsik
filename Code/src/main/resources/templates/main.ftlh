@@ -1,35 +1,47 @@
 <#import "parts/common.ftlh" as c>
-<#import "parts/login.ftlh" as l>
 
 <@c.page>
-    <div>
-        <@l.logout />
-        <span><a href="/user">User list</a></span>
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <form method="get" action="/main" class="form-inline">
+                <input type="text" name="filter" class="form-control" value="${filter!""}" placeholder="Search by title">
+                <button type="submit" class="btn btn-primary ml-2">Search</button>
+            </form>
+        </div>
     </div>
     <div>
         <form method="post" enctype="multipart/form-data">
-            <input type="text" name="title" placeholder="Введите заголовок"/>
-            <input type="text" name="description" placeholder="Описание"/>
-            <input type="file" name="file">
+            <div class="form-group">
+                <input type="text" name="title" class="form-control" placeholder="Введите заголовок"/>
+            </div>
+            <div class="form-group">
+                <input type="text" name="description" class="form-control" placeholder="Описание"/>
+            </div>
+            <div class="form-group">
+                <div class="custom-file">
+                    <input type="file" name="file" id="customFile">
+                    <label class="custom-file-label" for="customFile">Choose file</label>
+                </div>
+            </div>
             <input type="hidden" name="_csrf" value="${_csrf.token}"/>
-            <button type="submit">Добавить</button>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Добавить</button>
+            </div>
         </form>
     </div>
-    <div>Список объявлений</div>
-    <form method="get" action="/main">
-        <input type="text" name="filter" value="${filter!""}">
-        <button type="submit">Найти</button>
-    </form>
+
+    <div class="card-columns">
     <#list ads as ad>
-        <div>
-            <i>${ad.title}</i>
-            <span>${ad.description}</span>
-            <b>${ad.id}</b>
-            <strong>${ad.authorName}</strong>
-            <div>
-                <#if ad.filename??>
-                    <img src="/img/${ad.filename}">
-                </#if>
+        <div class="card my-3">
+            <#if ad.filename??>
+                <img src="/img/${ad.filename}" class="card-img-top">
+            </#if>
+            <div class="m-2">
+                <i>${ad.title}</i>
+                <span>${ad.description}</span>
+            </div>
+            <div class="card-footer text-muted">
+                ${ad.authorName}
             </div>
         </div>
     <#else>
