@@ -1,6 +1,9 @@
 package com.yuditsky.advertsik.domain;
 
+import org.hibernate.validator.constraints.Length;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.Objects;
 
 @Entity
@@ -9,7 +12,11 @@ public class Ad {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
+    @NotBlank(message = "Please fill the title")
     private String title;
+
+    @NotBlank(message = "Please fill the description")
+    @Length(max = 2048, message = "Description too long")
     private String description;
 
     @ManyToOne(fetch = FetchType.EAGER)
