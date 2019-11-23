@@ -13,6 +13,7 @@ public class Ad {
     private Integer id;
 
     @NotBlank(message = "Please fill the title")
+    @Length(max = 256, message = "Description too long")
     private String title;
 
     @NotBlank(message = "Please fill the description")
