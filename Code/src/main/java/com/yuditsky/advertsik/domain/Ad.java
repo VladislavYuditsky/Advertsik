@@ -10,7 +10,7 @@ import java.util.Objects;
 public class Ad {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    private Long id;
 
     @NotBlank(message = "Please fill the title")
     @Length(max = 256, message = "Description too long")
@@ -35,15 +35,15 @@ public class Ad {
         this.author = author;
     }
 
-    public String getAuthorName(){
+    public String getAuthorName() {
         return author.getUsername();
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

@@ -21,7 +21,7 @@ public class RegistrationController {
     private UserService userService;
 
     @GetMapping("/registration")
-    public String registration(){
+    public String registration() {
         return "registration";
     }
 
@@ -30,26 +30,26 @@ public class RegistrationController {
             @RequestParam("confirmationPassword") String confirmationPassword,
             @Valid User user,
             BindingResult bindingResult,
-            Model model){
+            Model model) {
         boolean isConfirmEmpty = StringUtils.isEmpty(confirmationPassword);
-        if(isConfirmEmpty){
+        if (isConfirmEmpty) {
             model.addAttribute("confirmationPasswordError", "Confirmation password can't be empty");
         }
 
-        if(user.getPassword() != null && !user.getPassword().equals(confirmationPassword)){
+        if (user.getPassword() != null && !user.getPassword().equals(confirmationPassword)) {
             model.addAttribute("passwordError", "Password are different!");
         }
 
-        if(isConfirmEmpty || bindingResult.hasErrors()){
+        if (isConfirmEmpty || bindingResult.hasErrors()) {
             Map<String, String> errors = ControllerUtil.getErrors(bindingResult);
-
             model.mergeAttributes(errors);
 
             return "registration";
         }
 
-        if(!userService.addUser(user)){
+        if (!userService.addUser(user)) {
             model.addAttribute("usernameError", "User exists!");
+
             return "registration";
         }
 
@@ -57,14 +57,8 @@ public class RegistrationController {
     }
 
     @GetMapping("/activate/{code}")
-    public String activate(Model model, @PathVariable String code){
-        boolean isActivated = userService.activateUser(code);//
-
-        /*if(isActivated){
-            model.addAttribute("message", "User successfully activated");
-        } else {
-            model.addAttribute("message", "Activation code is not found!");
-        }*/
+    public String activate(Model model, @PathVariable String code) {
+        userService.activateUser(code);
 
         return "login";
     }

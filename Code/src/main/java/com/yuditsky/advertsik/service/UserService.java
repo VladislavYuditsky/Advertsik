@@ -27,18 +27,17 @@ public class UserService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user =  userRepository.findByUsername(username);
-
-        if(user == null){
+        User user = userRepository.findByUsername(username);
+        if (user == null) {
             throw new UsernameNotFoundException("User not found");
         }
+
         return user;
     }
 
-    public boolean addUser(User user){
+    public boolean addUser(User user) {
         User userFromDb = userRepository.findByUsername(user.getUsername());
-
-        if(userFromDb != null){
+        if (userFromDb != null) {
             return false;
         }
 
@@ -55,9 +54,12 @@ public class UserService implements UserDetailsService {
     }
 
     private void sendMessage(User user) {
-        if(!StringUtils.isEmpty(user.getEmail())){
-            String message = String.format("Hello, %s! \n" + "Welcome to Advertsik, please," +
-                    " visit next link: http://localhost:8080/activate/%s", user.getUsername(), user.getActivationCode());
+        if (!StringUtils.isEmpty(user.getEmail())) {
+            String message = String.format("Hello, %s! \n" +
+                            "Welcome to Advertsik, please," +
+                            " visit next link: http://localhost:8080/activate/%s",
+                    user.getUsername(),
+                    user.getActivationCode());
 
             mailSender.send(user.getEmail(), "Activation code", message);
         }
@@ -65,13 +67,13 @@ public class UserService implements UserDetailsService {
 
     public boolean activateUser(String code) {
         User user = userRepository.findByActivationCode(code);
-
-        if(user == null){
-            return  false;
+        if (user == null) {
+            return false;
         }
 
-        user.setActivationCode(null);
+        user.setActivationCode("");
         user.setActive(true);
+
         userRepository.save(user);
 
         return true;
@@ -85,11 +87,9 @@ public class UserService implements UserDetailsService {
         user.setUsername(username);
 
         Set<String> roles = Arrays.stream(Role.values()).map(Role::name).collect(Collectors.toSet());
-
         user.getRoles().clear();
-
-        for(String key : form.keySet()){
-            if(roles.contains(key)){
+        for (String key : form.keySet()) {
+            if (roles.contains(key)) {
                 user.getRoles().add(Role.valueOf(key));
             }
         }
@@ -102,19 +102,19 @@ public class UserService implements UserDetailsService {
 
         boolean isEmailChanged = email != null && !email.equals(userEmail);
 
-        if(isEmailChanged){
+        if (isEmailChanged) {
             user.setEmail(email);
             user.setActivationCode(UUID.randomUUID().toString());
             user.setActive(false);
         }
 
-        if(!StringUtils.isEmpty(password)){
+        if (!StringUtils.isEmpty(password)) {
             user.setPassword(passwordEncoder.encode(password));
         }
 
         userRepository.save(user);
 
-        if(isEmailChanged) {
+        if (isEmailChanged) {
             sendMessage(user);
         }
     }

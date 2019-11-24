@@ -16,7 +16,7 @@ public class MailSender {
     private String username;
 
     @Async
-    public void send(String emailTo, String subject, String message){
+    public void send(String emailTo, String subject, String message) {
         SimpleMailMessage mailMessage = new SimpleMailMessage();
 
         mailMessage.setFrom(username);
