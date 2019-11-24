@@ -3,8 +3,10 @@
 <div class="card-columns">
     <#list ads as ad>
     <div class="card my-3">
+        <#if user??>
         <#if ad.filename??>
             <img src="/img/${ad.filename}" class="card-img-top">
+        </#if>
         </#if>
         <div class="m-2">
             <i>${ad.title}</i>
@@ -17,7 +19,6 @@
                     Edit
                 </a>
             </#if>
-
         </div>
     </div>
     <#else>

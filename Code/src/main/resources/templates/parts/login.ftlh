@@ -52,14 +52,14 @@
             </div>
         </#if>
         <input type="hidden" name="_csrf" value="${_csrf.token}" />
-        <#if !isRegisterForm><a href="/registration">Add new user</a></#if>
-        <button type="submit" class="btn btn-primary"><#if isRegisterForm>Create<#else>Sign In</#if></button>
+        <#if !isRegisterForm><a class="btn btn-dark" href="/registration">Add new user</a></#if>
+        <button type="submit" class="btn btn-dark"><#if isRegisterForm>Create<#else>Sign In</#if></button>
     </form>
 </#macro>
 
-<#macro logout>
+<#macro logout isAuthorized>
     <form action="/logout" method="post">
         <input type="hidden" name="_csrf" value="${_csrf.token}"/>
-        <button class="btn btn-primary" type="submit"/>Sign Out</button>
+        <button class="btn btn-outline-light" type="submit"><#if isAuthorized>Sign Out<#else>Sign In</#if></button>
     </form>
 </#macro>
