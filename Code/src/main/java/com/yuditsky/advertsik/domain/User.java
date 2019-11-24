@@ -23,10 +23,6 @@ public class User implements UserDetails {
     @NotBlank(message = "Password can't be empty")
     private String password;
 
-    @Transient
-    @NotBlank(message = "Confirmation password can't be empty")
-    private String confirmationPassword;
-
     private boolean active;
 
     @NotBlank(message = "Email can't be empty")
@@ -35,10 +31,13 @@ public class User implements UserDetails {
 
     private String activationCode;
 
-    @ElementCollection(targetClass =  Role.class, fetch = FetchType.EAGER)
+    @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
     @Enumerated(EnumType.STRING)
     private Set<Role> roles;
+
+    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<Ad> ads;
 
     public User() {
     }
@@ -56,7 +55,7 @@ public class User implements UserDetails {
         this.roles = roles;
     }
 
-    public boolean isAdmin(){
+    public boolean isAdmin() {
         return roles.contains(Role.ADMIN);
     }
 
@@ -141,12 +140,12 @@ public class User implements UserDetails {
         this.activationCode = activationCode;
     }
 
-    public String getConfirmationPassword() {
-        return confirmationPassword;
+    public Set<Ad> getAds() {
+        return ads;
     }
 
-    public void setConfirmationPassword(String confirmationPassword) {
-        this.confirmationPassword = confirmationPassword;
+    public void setAds(Set<Ad> ads) {
+        this.ads = ads;
     }
 
     @Override
