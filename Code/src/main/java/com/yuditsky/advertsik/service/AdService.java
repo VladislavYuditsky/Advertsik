@@ -74,4 +74,8 @@ public class AdService {
             save(ad);
         }
     }
+
+    public void deleteAd(Ad ad) {
+        adRepository.deleteById(ad.getId());
+    }
 }

@@ -91,4 +91,13 @@ public class AdController {
 
         return "userAds";
     }
+
+    @PostMapping("/user-ads/{user}/{ad}")
+    public String deleteAd(@PathVariable Long user, @PathVariable Ad ad){
+        if(ad.getAuthor().getId().equals(user)){
+            adService.deleteAd(ad);
+        }
+
+        return "redirect:/user-ads/" + user;
+    }
 }
