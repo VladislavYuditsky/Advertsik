@@ -57,7 +57,7 @@ public class RegistrationController {
     }
 
     @GetMapping("/activate/{code}")
-    public String activate(Model model, @PathVariable String code) {
+    public String activate(@PathVariable String code) {
         userService.activateUser(code);
 
         return "login";
