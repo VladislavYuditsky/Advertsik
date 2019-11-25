@@ -14,6 +14,8 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.validation.Valid;
 import java.io.File;
 import java.io.IOException;
+import java.util.Collections;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -25,12 +27,13 @@ public class AdService {
     private String uploadPath;
 
     public Iterable<Ad> takeAds(@RequestParam(required = false, defaultValue = "") String filter) {
-        Iterable<Ad> ads;
+        List<Ad> ads;
         if (filter != null && !filter.isEmpty()) {
             ads = adRepository.findByTitle(filter);
         } else {
-            ads = adRepository.findAll();
+            ads = (List<Ad>) adRepository.findAll();
         }
+        Collections.reverse(ads);
 
         return ads;
     }
