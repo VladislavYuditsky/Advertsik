@@ -1,3 +1,4 @@
+<#macro edit isEditForm>
 <div>
     <form method="post" enctype="multipart/form-data">
 
@@ -15,7 +16,7 @@
                    value="<#if ad??>${ad.description}</#if>" placeholder="Описание"/>
             <#if descriptionError??>
                 <div class="invalid-feedback">
-                    ${descriptionError}
+                    descriptionError
                 </div>
             </#if>
         </div>
@@ -26,9 +27,12 @@
             </div>
         </div>
         <input type="hidden" name="_csrf" value="${_csrf.token}"/>
+        <#if isEditForm>
         <input type="hidden" name="id" value="<#if ad??>${ad.id}</#if>" />
+        </#if>
         <div class="form-group">
-            <button type="submit" class="btn btn-primary">Save</button>
+            <button type="submit" class="btn btn-dark">Save</button>
         </div>
     </form>
 </div>
+</#macro>

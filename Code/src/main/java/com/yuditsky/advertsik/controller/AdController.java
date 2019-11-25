@@ -24,7 +24,12 @@ public class AdController {
     @Autowired
     private AdService adService;
 
-    @PostMapping("/")
+    @GetMapping("/new-ad")
+    public String newAd(){
+        return "newAd";
+    }
+
+    @PostMapping("/new-ad")
     public String addAd(
             @AuthenticationPrincipal User user,
             @Valid Ad ad,
@@ -41,27 +46,34 @@ public class AdController {
         } else {
             adService.saveFile(ad, file);
 
-            model.addAttribute("ad", null);
-
             adService.save(ad);
-        }
-        Iterable<Ad> ads = adService.takeAds("");
-        model.addAttribute("ads", ads);
 
-        return "main";
+            return "redirect:/";
+        }
+
+        return "newAd";
     }
 
-    @PostMapping("/user-ads/{user}")
+    @PostMapping("/ad-editor/{user}")
     public String updateAd(
             @AuthenticationPrincipal User currentUser,
             @PathVariable Long user,
-            @RequestParam("id") Ad ad,
+            @Valid Ad ad,
+            BindingResult bindingResult,
+            Model model,
             @RequestParam("title") String title,
             @RequestParam("description") String description,
             @RequestParam("file") MultipartFile file) throws IOException {
-        adService.updateAdd(currentUser, ad, title, description, file);
+        if (bindingResult.hasErrors()) {
+            Map<String, String> errorsMap = ControllerUtil.getErrors(bindingResult);
+            model.mergeAttributes(errorsMap);
 
-        return "redirect:/user-ads/" + user;
+            model.addAttribute("ad", ad);
+        } else {
+            adService.updateAdd(currentUser, ad, title, description, file);
+            return "redirect:/user-ads/" + user;
+        }
+        return "adEditor";
     }
 
     @GetMapping("/user-ads/{user}")
@@ -78,5 +90,21 @@ public class AdController {
         model.addAttribute("isCurrentUser", currentUser.equals(user));
 
         return "userAds";
+    }
+
+    @GetMapping("/ad-editor/{user}")
+    public String edit(
+            @AuthenticationPrincipal User currentUser,
+            @PathVariable User user,
+            Model model,
+            @RequestParam(required = false) Ad ad) { ///////
+        Set<Ad> ads = user.getAds();
+        model.addAttribute("ads", ads);
+
+        model.addAttribute("ad", ad);
+
+        model.addAttribute("isCurrentUser", currentUser.equals(user));
+
+        return "adEditor";
     }
 }

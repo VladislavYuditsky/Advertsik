@@ -15,7 +15,7 @@
         <div class="card-footer text-muted">
             ${ad.authorName}
             <#if ad.author.id == currentUserId>
-                <a class="btn btn-dark" href="/user-ads/${ad.author.id}?ad=${ad.id}">
+                <a class="btn btn-dark" href="/ad-editor/${ad.author.id}?ad=${ad.id}">
                     Edit
                 </a>
             </#if>

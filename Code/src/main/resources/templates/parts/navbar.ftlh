@@ -12,6 +12,9 @@
         <ul class="navbar-nav mr-auto">
             <#if user??>
                 <li class="nav-item">
+                    <a class="nav-link" href="/new-ad">New ad</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="/user-ads/${currentUserId}">My ads</a>
                 </li>
             </#if>

@@ -1,5 +1,6 @@
 <#import "parts/common.ftlh" as c>
+<#import "parts/adEdit.ftlh" as e>
 
 <@c.page>
-    <#include "parts/adList.ftlh" />
+    <@e.edit true/>
 </@c.page>
