@@ -57,7 +57,7 @@ public class UserController {
     public String updateProfile(
             @AuthenticationPrincipal User user,
             @RequestParam String password,
-            @RequestParam String email
+            @RequestParam String email//неодинаковая расстановка скобок
     ) {
         if (userServiceImpl.updateProfile(user, password, email)) {
             return "redirect:/login";
