@@ -54,10 +54,16 @@ public class AdController {
         return "newAd";
     }
 
-    @PostMapping("/ad-editor/{user}")
+    @GetMapping("/ad-editor")
+    public String edit(@RequestParam Ad ad, Model model) {
+        model.addAttribute("ad", ad);
+
+        return "adEditor";
+    }
+
+    @PostMapping("/ad-editor")
     public String updateAd(
             @AuthenticationPrincipal User currentUser,
-            @PathVariable Long user,
             @Valid Ad ad,
             BindingResult bindingResult,
             Model model,
@@ -71,40 +77,18 @@ public class AdController {
             model.addAttribute("ad", ad);
         } else {
             adService.updateAdd(currentUser, ad, title, description, file);
-            return "redirect:/user-ads/" + user;
+
+            User user = ad.getAuthor();
+            return "redirect:/user-ads/" + user.getId();
         }
         return "adEditor";
     }
 
     @GetMapping("/user-ads/{user}")
-    public String userAds(
-            @AuthenticationPrincipal User currentUser,
-            @PathVariable User user,
-            Model model,
-            @RequestParam(required = false) Ad ad) { ///////
+    public String userAds(@PathVariable User user, Model model) {
         Set<Ad> ads = user.getAds();
         model.addAttribute("ads", ads);
-
-        model.addAttribute("ad", ad);
-
-        model.addAttribute("isCurrentUser", currentUser.equals(user));
 
         return "userAds";
-    }
-
-    @GetMapping("/ad-editor/{user}")
-    public String edit(
-            @AuthenticationPrincipal User currentUser,
-            @PathVariable User user,
-            Model model,
-            @RequestParam(required = false) Ad ad) { ///////
-        Set<Ad> ads = user.getAds();
-        model.addAttribute("ads", ads);
-
-        model.addAttribute("ad", ad);
-
-        model.addAttribute("isCurrentUser", currentUser.equals(user));
-
-        return "adEditor";
     }
 }
