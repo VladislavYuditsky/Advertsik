@@ -43,7 +43,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {//пробрасывает слишком обобщённое исключение
         auth
                 .userDetailsService(userServiceImpl)
                 .passwordEncoder(passwordEncoder);
