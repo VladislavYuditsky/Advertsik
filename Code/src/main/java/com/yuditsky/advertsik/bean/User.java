@@ -159,12 +159,13 @@ public class User implements UserDetails {
                 password.equals(user.password) &&
                 email.equals(user.email) &&
                 activationCode.equals(user.activationCode) &&
-                roles.equals(user.roles);
+                roles.equals(user.roles) &&
+                ads.equals(user.ads);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, username, password, active, email, activationCode, roles);
+        return Objects.hash(id, username, password, active, email, activationCode, roles, ads);
     }
 
     @Override
@@ -177,6 +178,7 @@ public class User implements UserDetails {
                 ", email='" + email + '\'' +
                 ", activationCode='" + activationCode + '\'' +
                 ", roles=" + roles +
+                ", ads=" + ads +
                 '}';
     }
 }

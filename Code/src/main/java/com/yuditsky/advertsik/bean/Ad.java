@@ -85,21 +85,25 @@ public class Ad {
         if (o == null || getClass() != o.getClass()) return false;
         Ad ad = (Ad) o;
         return id.equals(ad.id) &&
+                title.equals(ad.title) &&
                 description.equals(ad.description) &&
-                title.equals(ad.title);
+                author.equals(ad.author) &&
+                filename.equals(ad.filename);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, description, title);
+        return Objects.hash(id, title, description, author, filename);
     }
 
     @Override
     public String toString() {
         return "Ad{" +
                 "id=" + id +
-                ", description='" + description + '\'' +
                 ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", author=" + author +
+                ", filename='" + filename + '\'' +
                 '}';
     }
 }
