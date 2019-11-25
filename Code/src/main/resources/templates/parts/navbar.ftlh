@@ -23,18 +23,13 @@
                     <a class="nav-link" href="/user">User list</a>
                 </li>
             </#if>
-            <#if user??>
-                <li class="nav-item">
-                    <a class="nav-link" href="/user/profile">Profile</a>
-                </li>
-            </#if>
             <form method="get" action="/" class="form-inline">
                 <input class="form-control mr-sm-2" name="filter" type="search" value="${filter!""}" placeholder="Search" aria-label="Search" >
                 <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
             </form>
         </ul>
-        <div class="navbar-text mr-3">${name}</div>
         <#if user??>
+            <div class="navbar-text mr-3"><a class="nav-link" href="/user/profile">${name}</a></div>
             <@l.logout true/>
         <#else>
             <@l.logout false/>

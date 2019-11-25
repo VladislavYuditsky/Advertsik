@@ -1,6 +1,6 @@
 package com.yuditsky.advertsik.repository;
 
-import com.yuditsky.advertsik.domain.Ad;
+import com.yuditsky.advertsik.bean.Ad;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;

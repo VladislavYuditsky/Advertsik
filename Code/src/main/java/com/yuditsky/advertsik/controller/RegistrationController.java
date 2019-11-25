@@ -1,7 +1,7 @@
 package com.yuditsky.advertsik.controller;
 
-import com.yuditsky.advertsik.domain.User;
-import com.yuditsky.advertsik.service.UserService;
+import com.yuditsky.advertsik.bean.User;
+import com.yuditsky.advertsik.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,7 +18,7 @@ import java.util.Map;
 @Controller
 public class RegistrationController {
     @Autowired
-    private UserService userService;
+    private UserServiceImpl userServiceImpl;
 
     @GetMapping("/registration")
     public String registration() {
@@ -47,7 +47,7 @@ public class RegistrationController {
             return "registration";
         }
 
-        if (!userService.addUser(user)) {
+        if (!userServiceImpl.addUser(user)) {
             model.addAttribute("usernameError", "User exists!");
 
             return "registration";
@@ -58,7 +58,7 @@ public class RegistrationController {
 
     @GetMapping("/activate/{code}")
     public String activate(@PathVariable String code) {
-        userService.activateUser(code);
+        userServiceImpl.activateUser(code);
 
         return "login";
     }

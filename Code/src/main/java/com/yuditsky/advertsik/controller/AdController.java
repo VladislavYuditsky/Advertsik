@@ -1,8 +1,8 @@
 package com.yuditsky.advertsik.controller;
 
-import com.yuditsky.advertsik.domain.Ad;
-import com.yuditsky.advertsik.domain.User;
-import com.yuditsky.advertsik.service.AdService;
+import com.yuditsky.advertsik.bean.Ad;
+import com.yuditsky.advertsik.bean.User;
+import com.yuditsky.advertsik.service.impl.AdServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -22,10 +22,10 @@ import java.util.Set;
 @Controller
 public class AdController {
     @Autowired
-    private AdService adService;
+    private AdServiceImpl adServiceImpl;
 
     @GetMapping("/new-ad")
-    public String newAd(){
+    public String newAd() {
         return "newAd";
     }
 
@@ -44,9 +44,9 @@ public class AdController {
 
             model.addAttribute("ad", ad);
         } else {
-            adService.saveFile(ad, file);
+            adServiceImpl.saveFile(ad, file);
 
-            adService.save(ad);
+            adServiceImpl.save(ad);
 
             return "redirect:/";
         }
@@ -76,7 +76,7 @@ public class AdController {
 
             model.addAttribute("ad", ad);
         } else {
-            adService.updateAdd(currentUser, ad, title, description, file);
+            adServiceImpl.updateAdd(currentUser, ad, title, description, file);
 
             User user = ad.getAuthor();
             return "redirect:/user-ads/" + user.getId();
@@ -93,9 +93,9 @@ public class AdController {
     }
 
     @PostMapping("/user-ads/{user}/{ad}")
-    public String deleteAd(@PathVariable Long user, @PathVariable Ad ad){
-        if(ad.getAuthor().getId().equals(user)){
-            adService.deleteAd(ad);
+    public String deleteAd(@PathVariable Long user, @PathVariable Ad ad) {
+        if (ad.getAuthor().getId().equals(user)) {
+            adServiceImpl.deleteAd(ad);
         }
 
         return "redirect:/user-ads/" + user;

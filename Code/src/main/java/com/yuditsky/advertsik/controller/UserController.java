@@ -1,8 +1,8 @@
 package com.yuditsky.advertsik.controller;
 
-import com.yuditsky.advertsik.domain.Role;
-import com.yuditsky.advertsik.domain.User;
-import com.yuditsky.advertsik.service.UserService;
+import com.yuditsky.advertsik.bean.Role;
+import com.yuditsky.advertsik.bean.User;
+import com.yuditsky.advertsik.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -16,12 +16,12 @@ import java.util.Map;
 @RequestMapping("/user")
 public class UserController {
     @Autowired
-    private UserService userService;
+    private UserServiceImpl userServiceImpl;
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping
     public String userList(Model model) {
-        model.addAttribute("users", userService.findAll());
+        model.addAttribute("users", userServiceImpl.findAll());
 
         return "userList";
     }
@@ -40,7 +40,7 @@ public class UserController {
             @RequestParam String username,
             @RequestParam Map<String, String> form,
             @RequestParam("userId") User user) {
-        userService.saveUser(user, username, form);
+        userServiceImpl.saveUser(user, username, form);
 
         return "redirect:/user";
     }
@@ -59,7 +59,9 @@ public class UserController {
             @RequestParam String password,
             @RequestParam String email
     ) {
-        userService.updateProfile(user, password, email);
+        if (userServiceImpl.updateProfile(user, password, email)) {
+            return "redirect:/login";
+        }
 
         return "redirect:/user/profile";
     }

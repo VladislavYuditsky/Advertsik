@@ -1,4 +1,4 @@
-package com.yuditsky.advertsik.domain;
+package com.yuditsky.advertsik.bean;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
