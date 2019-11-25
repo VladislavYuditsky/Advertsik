@@ -1,5 +1,6 @@
 <#import "parts/common.ftlh" as c>
+<#import "parts/adList.ftlh" as l>
 
 <@c.page>
-    <#include "parts/adList.ftlh" />
+    <@l.adList false/>
 </@c.page>
