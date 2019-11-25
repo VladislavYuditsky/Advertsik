@@ -69,7 +69,7 @@ public class AdController {
             Model model,
             @RequestParam("title") String title,
             @RequestParam("description") String description,
-            @RequestParam("file") MultipartFile file) throws IOException {
+            @RequestParam("file") MultipartFile file) throws IOException {//расположение каждого параметра в отдельной строке
         if (bindingResult.hasErrors()) {
             Map<String, String> errorsMap = ControllerUtil.getErrors(bindingResult);
             model.mergeAttributes(errorsMap);
